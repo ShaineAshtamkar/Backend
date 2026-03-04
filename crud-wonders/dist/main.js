@@ -37,7 +37,6 @@ const updateVisited = function (wonder) {
     })
 }
 
-
 $.ajax({
     url: `/wonder/Colosseum`,
     method: "DELETE",
@@ -46,8 +45,6 @@ $.ajax({
         fetch()
     }
 })
-
-
 
 //$(parentSelector).on(eventType, childSelector, callbackFunction)
 $("#wonders").on("click", ".visit", function () {
@@ -59,8 +56,5 @@ $("#wonders").on("click", ".visit", function () {
     //PUT this to the server: update the wonder's `visited` status to `true`
     updateVisited(wonder.split("-")[0].trim())
 })
-
-
-
 
 fetch() //load the data on page load
