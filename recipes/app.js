@@ -29,4 +29,13 @@ app.use((req, res) => {
     });
 });
 
+// temporary global error handler
+app.use((err, req, res, next) => {
+    res.status(500).json({
+        error: true,
+        message: err.message || "Internal Server Error",
+        statusCode: 500,
+    });
+});
+
 module.exports = app;

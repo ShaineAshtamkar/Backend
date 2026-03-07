@@ -1,1 +1,46 @@
-[]
+[
+    {
+        "id": "1",
+        "title": "Pancakes",
+        "description": "Fluffy homemade pancakes perfect for breakfast.",
+        "ingredients": [
+            "2 cups flour",
+            "2 eggs",
+            "1.5 cups milk",
+            "1 tbsp sugar"
+        ],
+        "instructions": [
+            "Mix ingredients",
+            "Heat pan",
+            "Pour batter",
+            "Flip and serve"
+        ],
+        "cookingTime": 20,
+        "servings": 4,
+        "difficulty": "easy",
+        "rating": 4.5,
+        "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+        "id": "2",
+        "title": "Spaghetti Bolognese",
+        "description": "Classic pasta dish with rich meat sauce.",
+        "ingredients": [
+            "200g spaghetti",
+            "300g minced beef",
+            "1 onion",
+            "2 tomatoes"
+        ],
+        "instructions": [
+            "Boil pasta",
+            "Cook beef",
+            "Add sauce ingredients",
+            "Combine and serve"
+        ],
+        "cookingTime": 40,
+        "servings": 3,
+        "difficulty": "medium",
+        "rating": 4.7,
+        "createdAt": "2025-01-02T00:00:00.000Z"
+    }
+]
