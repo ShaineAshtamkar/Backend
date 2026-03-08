@@ -1,27 +1,5 @@
 [
   {
-    "id": "1",
-    "title": "Updated Pancakes",
-    "description": "Soft fluffy pancakes with a rich homemade taste.",
-    "ingredients": [
-      "2 cups flour",
-      "2 eggs",
-      "1.5 cups milk",
-      "maple syrup"
-    ],
-    "instructions": [
-      "Mix all ingredients",
-      "Heat the pan",
-      "Cook both sides",
-      "Serve warm"
-    ],
-    "cookingTime": 25,
-    "servings": 4,
-    "difficulty": "easy",
-    "rating": 4.8,
-    "createdAt": "2025-01-01T00:00:00.000Z"
-  },
-  {
     "id": "2",
     "title": "Spaghetti Bolognese",
     "description": "Classic pasta dish with rich meat sauce.",

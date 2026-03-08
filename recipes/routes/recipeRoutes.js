@@ -5,6 +5,7 @@ const { getAllRecipes,
     getRecipeStats,
     createRecipe,
     updateRecipe,
+    deleteRecipe
 } = require("../controllers/recipeController");
 
 const validateRecipe = require("../middleware/validateRecipe");
@@ -16,5 +17,7 @@ router.get("/:id", getRecipeById);
 
 router.post("/", validateRecipe, createRecipe);
 router.put("/:id", validateRecipe, updateRecipe);
+router.delete("/:id", deleteRecipe);
+
 
 module.exports = router;

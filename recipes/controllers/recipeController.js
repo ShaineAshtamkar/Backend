@@ -185,7 +185,32 @@ const updateRecipe = async (req, res, next) => {
     }
 };
 
+const deleteRecipe = async (req, res, next) => {
+    try {
+        const recipes = await readRecipesFromFile();
+        const { id } = req.params;
+
+        const recipeIndex = recipes.findIndex((recipe) => recipe.id === id);
+
+        if (recipeIndex === -1) {
+            return res.status(404).json({
+                error: true,
+                message: "Recipe not found",
+                statusCode: 404,
+            });
+        }
+
+        recipes.splice(recipeIndex, 1);
+
+        await writeRecipesToFile(recipes);
+
+        res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
-    getAllRecipes, getRecipeById, getRecipeStats, createRecipe, updateRecipe,
+    getAllRecipes, getRecipeById, getRecipeStats, createRecipe, updateRecipe, deleteRecipe,
 
 };
