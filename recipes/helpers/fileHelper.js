@@ -8,7 +8,9 @@ const readRecipesFromFile = async () => {
         const data = await fs.readFile(recipesFilePath, "utf-8");
         return JSON.parse(data || "[]");
     } catch (error) {
-        throw new Error("Failed to read recipes data");
+        const err = new Error("Failed to read recipes data");
+        err.statusCode = 500;
+        throw err;
     }
 };
 
@@ -17,7 +19,9 @@ const writeRecipesToFile = async (recipes) => {
     try {
         await fs.writeFile(recipesFilePath, JSON.stringify(recipes, null, 2));
     } catch (error) {
-        throw new Error("Failed to write recipes data");
+        const err = new Error("Failed to write recipes data");
+        err.statusCode = 500;
+        throw err;
     }
 };
 

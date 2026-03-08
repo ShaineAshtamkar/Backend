@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const recipeRoutes = require("./routes/recipeRoutes");
+const errorHandler = require("./middleware/errorHandler");
+
 
 const app = express();
 
@@ -29,13 +31,7 @@ app.use((req, res) => {
     });
 });
 
-// temporary global error handler
-app.use((err, req, res, next) => {
-    res.status(500).json({
-        error: true,
-        message: err.message || "Internal Server Error",
-        statusCode: 500,
-    });
-});
+app.use(errorHandler);
+
 
 module.exports = app;
