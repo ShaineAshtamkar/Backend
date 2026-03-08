@@ -3,9 +3,18 @@ const router = express.Router();
 const { getAllRecipes,
     getRecipeById,
     getRecipeStats,
+    createRecipe,
+    updateRecipe,
 } = require("../controllers/recipeController");
+
+const validateRecipe = require("../middleware/validateRecipe");
+
 
 router.get("/", getAllRecipes);
 router.get("/stats", getRecipeStats);
 router.get("/:id", getRecipeById);
+
+router.post("/", validateRecipe, createRecipe);
+router.put("/:id", validateRecipe, updateRecipe);
+
 module.exports = router;

@@ -1,4 +1,6 @@
-const { readRecipesFromFile } = require("../helpers/fileHelper");
+const { readRecipesFromFile, writeRecipesToFile } = require("../helpers/fileHelper");
+const { v4: uuidv4 } = require("uuid");
+
 
 const getAllRecipes = async (req, res, next) => {
     try {
@@ -126,8 +128,64 @@ const getRecipeStats = async (req, res, next) => {
 };
 
 
+const createRecipe = async (req, res, next) => {
+    try {
+        const recipes = await readRecipesFromFile();
+
+        const newRecipe = {
+            id: uuidv4(),
+            ...req.body,
+            createdAt: new Date().toISOString(),
+        };
+
+        recipes.push(newRecipe);
+
+        await writeRecipesToFile(recipes);
+
+        res.status(201).json({
+            error: false,
+            data: newRecipe,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+const updateRecipe = async (req, res, next) => {
+    try {
+        const recipes = await readRecipesFromFile();
+        const { id } = req.params;
+
+        const recipeIndex = recipes.findIndex((recipe) => recipe.id === id);
+
+        if (recipeIndex === -1) {
+            return res.status(404).json({
+                error: true,
+                message: "Recipe not found",
+                statusCode: 404,
+            });
+        }
+
+        const updatedRecipe = {
+            ...recipes[recipeIndex],
+            ...req.body,
+        };
+
+        recipes[recipeIndex] = updatedRecipe;
+
+        await writeRecipesToFile(recipes);
+
+        res.status(200).json({
+            error: false,
+            data: updatedRecipe,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 module.exports = {
-    getAllRecipes, getRecipeById, getRecipeStats,
+    getAllRecipes, getRecipeById, getRecipeStats, createRecipe, updateRecipe,
 
 };
