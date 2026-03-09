@@ -6,6 +6,7 @@ const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
+
 // built-in middleware
 app.use(express.json());
 
