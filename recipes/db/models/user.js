@@ -42,5 +42,19 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true
     });
 
+    User.associate = models => {
+        User.hasMany(models.Recipe, {
+            foreignKey: 'userId',
+            as: 'recipes'
+        });
+
+        User.belongsToMany(models.Recipe, {
+            through: models.UserFavorite,
+            foreignKey: 'userId',
+            otherKey: 'recipeId',
+            as: 'favoriteRecipes'
+        });
+    };
+
     return User;
 };
