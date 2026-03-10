@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require("./routes/recipeRoutes");
 const errorHandler = require("./middleware/errorHandler");
 
@@ -12,6 +13,7 @@ const { User } = require('./db/models');
 app.use(express.json());
 
 // logging middleware
+
 app.use(morgan("dev"));
 
 // health check route
@@ -21,8 +23,13 @@ app.get("/", (req, res) => {
     });
 });
 
+app.use('/api/auth', authRoutes);
+
+
 // recipe routes
 app.use("/api/recipes", recipeRoutes);
+
+
 
 
 // 404 handler for unknown routes
