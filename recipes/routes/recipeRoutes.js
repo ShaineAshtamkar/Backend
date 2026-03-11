@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require('multer');
 const authMiddleware = require('../middleware/authMiddleware');
 
 
@@ -17,6 +18,8 @@ const {
     deleteRecipe
 } = require('../controllers/recipeController');
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
+
 
 
 const validateRecipe = require("../middleware/validateRecipe");
@@ -30,9 +33,9 @@ const validateRecipe = require("../middleware/validateRecipe");
 // router.put("/:id", validateRecipe, updateRecipe);
 // router.delete("/:id", deleteRecipe);
 
-router.post('/', authMiddleware, createRecipe);
+router.post('/', authMiddleware, upload.single('image'), createRecipe);
 router.get('/my-recipes', authMiddleware, getMyRecipes);
-router.put('/:id', authMiddleware, updateRecipe);
+router.put('/:id', authMiddleware, upload.single('image'), updateRecipe);
 router.delete('/:id', authMiddleware, deleteRecipe);
 
 

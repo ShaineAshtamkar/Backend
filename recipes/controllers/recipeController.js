@@ -212,6 +212,7 @@ const { v4: uuidv4 } = require("uuid");
 
 
 const { Recipe } = require('../db/models');
+const fs = require('fs');
 
 const createRecipe = async (req, res) => {
     try {
@@ -243,8 +244,8 @@ const createRecipe = async (req, res) => {
         const recipe = await Recipe.create({
             title,
             description,
-            ingredients,
-            instructions,
+            ingredients: typeof ingredients === 'string' ? JSON.parse(ingredients) : ingredients,
+            instructions: typeof instructions === 'string' ? JSON.parse(instructions) : instructions,
             cookingTime,
             servings,
             difficulty,
@@ -303,7 +304,21 @@ const updateRecipe = async (req, res) => {
             });
         }
 
-        await recipe.update(req.body);
+        const updatedData = { ...req.body };
+
+        if (updatedData.ingredients && typeof updatedData.ingredients === 'string') {
+            updatedData.ingredients = JSON.parse(updatedData.ingredients);
+        }
+
+        if (updatedData.ingredients && typeof updatedData.ingredients === 'string') {
+            updatedData.ingredients = JSON.parse(updatedData.ingredients);
+        }
+
+        if (req.file) {
+            updatedData.imageUrl = req.file.path;
+        }
+
+        await recipe.update(updatedData);
 
         res.status(200).json({
             success: true,

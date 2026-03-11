@@ -1,5 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
+const path = require('path');
+
 const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require("./routes/recipeRoutes");
 const errorHandler = require("./middleware/errorHandler");
@@ -15,6 +17,8 @@ app.use(express.json());
 // logging middleware
 
 app.use(morgan("dev"));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // health check route
 app.get("/", (req, res) => {
