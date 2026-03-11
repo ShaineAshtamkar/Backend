@@ -288,42 +288,26 @@ const getMyRecipes = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.findByPk(req.params.id);
-
-        if (!recipe) {
-            return res.status(404).json({
-                success: false,
-                message: 'Recipe not found'
-            });
-        }
-
-        if (recipe.userId !== req.user.userId) {
-            return res.status(403).json({
-                success: false,
-                message: 'You can only update your own recipes'
-            });
-        }
-
         const updatedData = { ...req.body };
 
         if (updatedData.ingredients && typeof updatedData.ingredients === 'string') {
             updatedData.ingredients = JSON.parse(updatedData.ingredients);
         }
 
-        if (updatedData.ingredients && typeof updatedData.ingredients === 'string') {
-            updatedData.ingredients = JSON.parse(updatedData.ingredients);
+        if (updatedData.instructions && typeof updatedData.instructions === 'string') {
+            updatedData.instructions = JSON.parse(updatedData.instructions);
         }
 
         if (req.file) {
             updatedData.imageUrl = req.file.path;
         }
 
-        await recipe.update(updatedData);
+        await req.recipe.update(updatedData);
 
         res.status(200).json({
             success: true,
             message: 'Recipe updated successfully',
-            recipe
+            recipe: req.recipe
         });
     } catch (error) {
         res.status(500).json({
@@ -335,23 +319,11 @@ const updateRecipe = async (req, res) => {
 
 const deleteRecipe = async (req, res) => {
     try {
-        const recipe = await Recipe.findByPk(req.params.id);
-
-        if (!recipe) {
-            return res.status(404).json({
-                success: false,
-                message: 'Recipe not found'
-            });
+        if (req.recipe.imageUrl && fs.existsSync(req.recipe.imageUrl)) {
+            fs.unlinkSync(req.recipe.imageUrl);
         }
 
-        if (recipe.userId !== req.user.userId) {
-            return res.status(403).json({
-                success: false,
-                message: 'You can only delete your own recipes'
-            });
-        }
-
-        await recipe.destroy();
+        await req.recipe.destroy();
 
         res.status(200).json({
             success: true,

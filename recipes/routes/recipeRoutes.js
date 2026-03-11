@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require('multer');
 const authMiddleware = require('../middleware/authMiddleware');
+const checkRecipeOwnership = require('../middleware/checkRecipeOwnership');
 
 
 // const { getAllRecipes,
@@ -35,8 +36,9 @@ const validateRecipe = require("../middleware/validateRecipe");
 
 router.post('/', authMiddleware, upload.single('image'), createRecipe);
 router.get('/my-recipes', authMiddleware, getMyRecipes);
-router.put('/:id', authMiddleware, upload.single('image'), updateRecipe);
-router.delete('/:id', authMiddleware, deleteRecipe);
+router.put('/:id', authMiddleware, checkRecipeOwnership, upload.single('image'), updateRecipe);
+router.delete('/:id', authMiddleware, checkRecipeOwnership, deleteRecipe);
+
 
 
 
