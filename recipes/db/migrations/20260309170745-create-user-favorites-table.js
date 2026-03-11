@@ -35,6 +35,7 @@ module.exports = {
         defaultValue: Sequelize.NOW
       },
 
+
     });
 
     await queryInterface.addConstraint('UserFavorites', {

@@ -4,6 +4,8 @@ const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
 const recipeRoutes = require("./routes/recipeRoutes");
+const userRoutes = require('./routes/userRoutes');
+
 const errorHandler = require("./middleware/errorHandler");
 
 
@@ -32,7 +34,8 @@ app.use('/api/auth', authRoutes);
 
 // recipe routes
 app.use("/api/recipes", recipeRoutes);
-
+//user routes
+app.use('/api/users', userRoutes);
 
 
 
